@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from pydantic import BaseModel, HttpUrl
 from typing import List
 
@@ -40,7 +40,6 @@ async def health_check():
 
 
 @router.post("/analyze-website", response_model=CompanyProfile)
-async def analyze_website(request: WebsiteAnalysisRequest):
-    mock_profile = await service.analyze_website(request.website_url)
-
+async def analyze_website(website_url: HttpUrl = Query(..., description="Website URL to analyze")):
+    mock_profile = await service.analyze_website(website_url)
     return CompanyProfile(**mock_profile)
