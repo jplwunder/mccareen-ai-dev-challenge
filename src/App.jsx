@@ -1,6 +1,16 @@
 import { useState, useMemo, useEffect } from "react";
 
-import { Container, Stack, TextField, Button, Typography } from "@mui/material";
+import {
+  Container,
+  Stack,
+  TextField,
+  Button,
+  Typography,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+} from "@mui/material";
 import ManageSearchRoundedIcon from "@mui/icons-material/ManageSearchRounded";
 
 import CompanyReportCard from "./CompanyReportCard";
@@ -70,8 +80,7 @@ function App() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            height:
-              isMobile || isLoading || companyProfileData ? "auto" : "90vh",
+            height: isLoading || companyProfileData ? "auto" : "90vh",
           }}
         >
           <Stack spacing={2} sx={{ width: "100%" }}>
