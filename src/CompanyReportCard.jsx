@@ -157,7 +157,7 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
             </Stack>
 
             <Stack spacing={0.5}>
-              <Typography variant="subtitle1">Point of Contact:</Typography>
+              <Typography variant="subtitle1">Points of Contact:</Typography>
               <TextField
                 disabled={isLoading}
                 fullWidth
@@ -268,7 +268,7 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
         </Box>
         <Box mt={2}>
           <Typography variant="subtitle1" fontWeight="bold">
-          Point of Contact:
+          Points of Contact:
           </Typography>
           {companyProfileData?.point_of_contact &&
           companyProfileData.point_of_contact.length > 0 ? (
