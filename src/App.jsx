@@ -63,14 +63,15 @@ function App() {
       const data = await response.json();
       if (!response.ok) {
         setError("Failed to generate profile. Please try again.");
+        setCompanyProfileData(null);
         throw new Error(data.detail || "Failed to generate profile");
       }
       setCompanyProfileData({ ...companyProfileData, ...data });
     } catch (error) {
       console.error("Error generating profile:", error);
       setError("Failed to generate profile. Please try again.");
-    } finally {
       setCompanyProfileData(null);
+    } finally {
       setIsLoading(false);
     }
   };
