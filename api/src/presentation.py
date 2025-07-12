@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel, HttpUrl
 from typing import List
 
+from api.src import service
 
 # Requests ----------------------------------------
 
@@ -40,24 +41,6 @@ async def health_check():
 
 @router.post("/analyze-website", response_model=CompanyProfile)
 async def analyze_website(request: WebsiteAnalysisRequest):
-    mock_profile = CompanyProfile(
-        company_name="Example Company",
-        company_description="A leading technology company providing innovative solutions for businesses worldwide.",
-        tier1_keywords=[
-            "technology",
-            "innovation",
-            "solutions",
-            "business",
-            "software",
-        ],
-        tier2_keywords=["AI", "machine learning", "automation"],
-        emails=["info@example.com", "contact@example.com"],
-        point_of_contact="Jane Doe",
-        service_lines=[
-            "Web Development",
-            "Mobile App Development",
-            "Cloud Services",
-        ],
-    )
+    mock_profile = service.analyze_website(request.website_url)
 
-    return mock_profile
+    return CompanyProfile(**mock_profile)
