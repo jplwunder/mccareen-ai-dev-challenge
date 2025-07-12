@@ -138,6 +138,7 @@ function App() {
               variant="outlined"
               placeholder="https://website.com"
               value={websiteUrl}
+              color="default"
               helperText={helperText}
               onChange={(e) => {
                 setWebsiteUrl(e.target.value);
@@ -145,9 +146,9 @@ function App() {
             />
             <Button
               onClick={handleGenerateProfile}
-              disabled={!websiteUrl.trim()}
+              disabled={!websiteUrl.trim() || isLoading}
               variant="text"
-              color="primary"
+              color="default"
               sx={{
                 display: "flex",
                 alignItems: "center",
