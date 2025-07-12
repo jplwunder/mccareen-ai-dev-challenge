@@ -23,7 +23,7 @@ CompanyReportCard.propTypes = {
     tier1_keywords: PropTypes.arrayOf(PropTypes.string),
     tier2_keywords: PropTypes.arrayOf(PropTypes.string),
     emails: PropTypes.arrayOf(PropTypes.string),
-    point_of_contact: PropTypes.string,
+    point_of_contact: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
@@ -161,13 +161,13 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               <TextField
                 disabled={isLoading}
                 fullWidth
-                value={companyProfileData?.point_of_contact || ""}
+                value={companyProfileData?.point_of_contact?.join(", ") || ""}
                 variant="outlined"
                 margin="normal"
                 onChange={(e) =>
                   setCompanyProfileData({
                     ...companyProfileData,
-                    point_of_contact: e.target.value,
+                    point_of_contact: e.target.value.split(", "),
                   })
                 }
               />
@@ -191,107 +191,121 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
   } else if (mode === "view") {
     return (
       <Card sx={{ width: "100%", marginTop: 2 }}>
-        <Stack spacing={2} sx={{ padding: 2 }}>
-          <CardHeader title={companyProfileData?.company_name || "..."} />
-          <Divider />
-          <CardContent>
-            <Typography variant="body1" gutterBottom>
-              {companyProfileData?.company_description || "..."}
+      <Stack spacing={2} sx={{ padding: 2 }}>
+        <CardHeader
+        title={
+          <Typography variant="h3">
+          {companyProfileData?.company_name || "Unknown company name"}
+          </Typography>
+        }
+        />
+        <Divider />
+        <CardContent>
+        <Typography variant="body1" gutterBottom>
+          {companyProfileData?.company_description ||
+          "Unknown company description"}
+        </Typography>
+        <Box mt={2}>
+          <Typography variant="subtitle1" fontWeight="bold">
+          Service lines:
+          </Typography>
+          {companyProfileData?.service_lines &&
+          companyProfileData.service_lines.length > 0 ? (
+          companyProfileData.service_lines.map((line, idx) => (
+            <Typography key={idx} variant="body2">
+            {line}
             </Typography>
-            <Box mt={2}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Service lines:
-              </Typography>
-              {companyProfileData?.service_lines &&
-              companyProfileData.service_lines.length > 0 ? (
-                companyProfileData.service_lines.map((line, idx) => (
-                  <Typography key={idx} variant="body2">
-                    {line}
-                  </Typography>
-                ))
-              ) : (
-                <Typography variant="body2">...</Typography>
-              )}
-            </Box>
-            <Box mt={2}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Tier 1 Keywords:
-              </Typography>
-              {companyProfileData?.tier1_keywords &&
-              companyProfileData.tier1_keywords.length > 0 ? (
-                companyProfileData.tier1_keywords.map((keyword, idx) => (
-                  <Typography key={idx} variant="body2">
-                    {keyword}
-                  </Typography>
-                ))
-              ) : (
-                <Typography variant="body2">...</Typography>
-              )}
-            </Box>
-            <Box mt={2}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Tier 2 Keywords:
-              </Typography>
-              {companyProfileData?.tier2_keywords &&
-              companyProfileData.tier2_keywords.length > 0 ? (
-                companyProfileData.tier2_keywords.map((keyword, idx) => (
-                  <Typography key={idx} variant="body2">
-                    {keyword}
-                  </Typography>
-                ))
-              ) : (
-                <Typography variant="body2">...</Typography>
-              )}
-            </Box>
-            <Box mt={2}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Emails:
-              </Typography>
-              {companyProfileData?.emails &&
-              companyProfileData.emails.length > 0 ? (
-                companyProfileData.emails.map((email, idx) => (
-                  <Typography key={idx} variant="body2">
-                    {email}
-                  </Typography>
-                ))
-              ) : (
-                <Typography variant="body2">No emails found</Typography>
-              )}
-            </Box>
-            <Box mt={2}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Point of Contact:
-              </Typography>
-              <Typography variant="body2">
-                {companyProfileData?.point_of_contact || "N/A"}
-              </Typography>
-            </Box>
-          </CardContent>
-          <CardActions>
-            <Stack
-              direction="row"
-              spacing={1}
-              justifyContent="flex-end"
-              flexGrow={1}
-            >
-              <Button size="small" onClick={() => setMode("edit")}>
-                Edit
-              </Button>
-              <Button
-                size="small"
-                onClick={() => {
-                  const json = JSON.stringify(companyProfileData, null, 2);
-                  const blob = new Blob([json], { type: "application/json" });
-                  const url = URL.createObjectURL(blob);
-                  window.open(url, "_blank");
-                  setTimeout(() => URL.revokeObjectURL(url), 1000);
-                }}
-              >
-                View JSON
-              </Button>
-            </Stack>
-          </CardActions>
+          ))
+          ) : (
+          <Typography variant="body2">Unknown</Typography>
+          )}
+        </Box>
+        <Box mt={2}>
+          <Typography variant="subtitle1" fontWeight="bold">
+          Tier 1 Keywords:
+          </Typography>
+          {companyProfileData?.tier1_keywords &&
+          companyProfileData.tier1_keywords.length > 0 ? (
+          companyProfileData.tier1_keywords.map((keyword, idx) => (
+            <Typography key={idx} variant="body2">
+            {keyword}
+            </Typography>
+          ))
+          ) : (
+          <Typography variant="body2">Unknown</Typography>
+          )}
+        </Box>
+        <Box mt={2}>
+          <Typography variant="subtitle1" fontWeight="bold">
+          Tier 2 Keywords:
+          </Typography>
+          {companyProfileData?.tier2_keywords &&
+          companyProfileData.tier2_keywords.length > 0 ? (
+          companyProfileData.tier2_keywords.map((keyword, idx) => (
+            <Typography key={idx} variant="body2">
+            {keyword}
+            </Typography>
+          ))
+          ) : (
+          <Typography variant="body2">Unknown</Typography>
+          )}
+        </Box>
+        <Box mt={2}>
+          <Typography variant="subtitle1" fontWeight="bold">
+          Emails:
+          </Typography>
+          {companyProfileData?.emails &&
+          companyProfileData.emails.length > 0 ? (
+          companyProfileData.emails.map((email, idx) => (
+            <Typography key={idx} variant="body2">
+            {email}
+            </Typography>
+          ))
+          ) : (
+          <Typography variant="body2">Unknown</Typography>
+          )}
+        </Box>
+        <Box mt={2}>
+          <Typography variant="subtitle1" fontWeight="bold">
+          Point of Contact:
+          </Typography>
+          {companyProfileData?.point_of_contact &&
+          companyProfileData.point_of_contact.length > 0 ? (
+          companyProfileData.point_of_contact.map((contact, idx) => (
+            <Typography key={idx} variant="body2">
+            {contact}
+            </Typography>
+          ))
+          ) : (
+          <Typography variant="body2">Unknown</Typography>
+          )}
+        </Box>
+        </CardContent>
+        <CardActions>
+        <Stack
+          direction="row"
+          spacing={1}
+          justifyContent="flex-end"
+          flexGrow={1}
+        >
+          <Button size="small" onClick={() => setMode("edit")}>
+          Edit
+          </Button>
+          <Button
+          size="small"
+          onClick={() => {
+            const json = JSON.stringify(companyProfileData, null, 2);
+            const blob = new Blob([json], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            window.open(url, "_blank");
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+          }}
+          >
+          View JSON
+          </Button>
         </Stack>
+        </CardActions>
+      </Stack>
       </Card>
     );
   }
