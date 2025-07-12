@@ -70,6 +70,7 @@ function App() {
       console.error("Error generating profile:", error);
       setError("Failed to generate profile. Please try again.");
     } finally {
+      setCompanyProfileData(null);
       setIsLoading(false);
     }
   };
