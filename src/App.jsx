@@ -69,6 +69,20 @@ function App() {
     }
   };
 
+  // Dynamic loading dots state
+  const [loadingDots, setLoadingDots] = useState("");
+
+  useEffect(() => {
+    if (isLoading) {
+      const interval = setInterval(() => {
+        setLoadingDots((prev) => (prev.length < 3 ? prev + "." : ""));
+      }, 500);
+      return () => clearInterval(interval);
+    } else {
+      setLoadingDots("");
+    }
+  }, [isLoading]);
+
   return (
     <Container maxWidth={isMobile ? "xs" : "md"} sx={{ mt: 4 }}>
       <Stack spacing={2} sx={{ mb: 4 }} alignItems={"center"}>
@@ -130,10 +144,10 @@ function App() {
         {isLoading && (
           <Card sx={{ width: "100%", marginTop: 2 }}>
             <Stack spacing={2} sx={{ padding: 2 }}>
-              <CardHeader title="Loading..." />
+              <CardHeader title={`Loading${loadingDots}`} />
               <CardContent>
                 <Typography variant="body1">
-                  Please wait... Profile generations can take up to a couple of
+                  Please wait... Profile generation can take up to a couple of
                   minutes.
                 </Typography>
               </CardContent>
