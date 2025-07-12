@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 
 CompanyReportCard.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   initialCompanyProfileData: PropTypes.shape({
     company_name: PropTypes.string,
@@ -28,7 +27,7 @@ CompanyReportCard.propTypes = {
   }).isRequired,
 };
 
-function CompanyReportCard({ isMobile, isLoading, initialCompanyProfileData }) {
+function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
   const [mode, setMode] = useState("view");
 
   const [companyProfileData, setCompanyProfileData] = useState({
@@ -42,7 +41,7 @@ function CompanyReportCard({ isMobile, isLoading, initialCompanyProfileData }) {
       <>
         <Card
           sx={{
-            width: isMobile ? "100%" : "80%",
+            width: "100%",
             marginTop: 2,
           }}
         >
@@ -181,7 +180,7 @@ function CompanyReportCard({ isMobile, isLoading, initialCompanyProfileData }) {
     );
   } else if (mode === "view") {
     return (
-      <Card sx={{ width: isMobile ? "100%" : "80%", marginTop: 2 }}>
+      <Card sx={{ width: "100%", marginTop: 2 }}>
         <Stack spacing={2} sx={{ padding: 2 }}>
           <CardHeader title={companyProfileData?.company_name || "..."} />
           <Divider />

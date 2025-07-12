@@ -130,7 +130,7 @@ function App() {
         </Stack>
 
         {isLoading && (
-          <Card sx={{ width: isMobile ? "100%" : "80%", marginTop: 2 }}>
+          <Card sx={{ width: "100%", marginTop: 2 }}>
             <Stack spacing={2} sx={{ padding: 2 }}>
               <CardHeader title="Loading..." />
               <CardContent>
@@ -153,7 +153,6 @@ function App() {
 
         {companyProfileData && !isLoading && (
           <CompanyReportCard
-            isMobile={isMobile}
             isLoading={isLoading}
             initialCompanyProfileData={companyProfileData}
           />
