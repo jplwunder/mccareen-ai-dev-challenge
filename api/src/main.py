@@ -26,6 +26,7 @@ app.add_middleware(
         "http://localhost:5174",
         "http://localhost:3000",
         "https://mccareen-ai-dev-challenge.vercel.app",
+        "https://mccareen-ai-dev-challenge-jplwunders-projects.vercel.app/",
     ],
     allow_credentials=True,
     allow_methods=["*"],
