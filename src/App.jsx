@@ -1,35 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useMemo, useEffect } from "react";
+
+import {
+  Box,
+  Container,
+  Stack,
+  TextField,
+  Button,
+  Grid,
+  Typography,
+} from "@mui/material";
+import ManageSearchRoundedIcon from "@mui/icons-material/ManageSearchRounded";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // states
+  const [width, setWidth] = useState(window.innerWidth);
+  const [websiteUrl, setWebsiteUrl] = useState("");
+
+  // variables
+  const isMobile = useMemo(() => width <= 768, [width]);
+
+  // functions
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  // effects
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Container maxWidth={isMobile ? "xs" : "md"}>
+      <Stack
+        spacing={4}
+        direction={isMobile ? "column" : "row"}
+        justifyContent="center"
+        alignItems="center"
+        sx={{ height: "95vh" }}
+      >
+        <Stack spacing={2} sx={{ width: "100%" }}>
+          <Typography noWrap={isMobile ? false : true} variant="h4">
+            Company Profile Generator
+          </Typography>
+          <Typography variant="body1">
+            Analyze any company website to generate comprehensive business
+            profiles.
+          </Typography>
+        </Stack>
+
+        <Stack direction="row" spacing={1} sx={{ width: "100%" }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="https://website.com"
+            value={websiteUrl}
+            onChange={(e) => setWebsiteUrl(e.target.value)}
+          />
+          <Button
+            onClick={() => console.log("Generate profile for:", websiteUrl)}
+            disabled={!websiteUrl.trim()}
+            variant="contained"
+            color="primary"
+          >
+            <ManageSearchRoundedIcon />
+          </Button>
+        </Stack>
+      </Stack>
+    </Container>
+  );
 }
 
-export default App
+export default App;
