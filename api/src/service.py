@@ -1,9 +1,6 @@
 import requests
 
-from api.src.logger import get_logger, LogLevel
 from api.src.ai_analyzer import get_company_profile
-
-logger = get_logger("service", level=LogLevel.DEBUG)
 
 
 async def analyze_website(website_url):
