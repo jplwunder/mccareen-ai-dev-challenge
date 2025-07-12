@@ -42,7 +42,6 @@ function App() {
   }, []);
 
   const handleGenerateProfile = async () => {
-    setCompanyProfileData(null);
     setError(null);
     setHelperText("");
     const url = `${
