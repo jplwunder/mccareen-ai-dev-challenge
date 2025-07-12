@@ -91,15 +91,30 @@ function App() {
   }, [isLoading]);
 
   return (
-    <Container maxWidth={isMobile ? "xs" : "md"} sx={{ mt: 4 }}>
-      <Stack spacing={2} sx={{ mb: 4 }} alignItems={"center"}>
+    <Container
+      maxWidth={isMobile ? "xs" : "md"}
+      sx={{
+        mt: 4,
+        minHeight: "90vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Stack
+        spacing={2}
+        sx={{ mb: 4, width: "100%" }}
+        alignItems={"center"}
+        justifyContent="center"
+      >
         <Stack
           spacing={4}
           direction={isMobile ? "column" : "row"}
           justifyContent="center"
           alignItems="center"
           sx={{
-            height: isLoading || companyProfileData || error ? "auto" : "90vh",
+            height: isLoading || companyProfileData || error ? "auto" : "50%",
+            width: "100%",
           }}
         >
           <Stack spacing={2} sx={{ width: "100%" }}>
