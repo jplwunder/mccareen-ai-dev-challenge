@@ -21,7 +21,7 @@ class CompanyProfile(BaseModel):
     tier1_keywords: List[str] | str
     tier2_keywords: List[str] | str
     emails: List[str] | str
-    point_of_contact: str
+    point_of_contact: List[str] | str
 
 
 # Routes ----------------------------------------

@@ -84,7 +84,9 @@ async def get_company_profile(website_content) -> dict:
             "emails": emails.split(",")
             if emails and emails != "Unknown"
             else ["Unknown"],
-            "point_of_contact": point_of_contact,
+            "point_of_contact": point_of_contact.split(",")
+            if point_of_contact and point_of_contact != "Unknown"
+            else ["Unknown"],
         }
 
     except Exception as e:
@@ -96,7 +98,7 @@ async def get_company_profile(website_content) -> dict:
             "tier1_keywords": ["Unknown"],
             "tier2_keywords": ["Unknown"],
             "emails": ["Unknown"],
-            "point_of_contact": "Unknown",
+            "point_of_contact": ["Unknown"],
         }
 
 
@@ -196,6 +198,7 @@ async def extract_point_of_contact_from_markdown(markdown_content: str) -> str:
         config=genai_types.GenerateContentConfig(
             system_instruction="""You are a point of contact extractor. Extract the point of contact from the input markdown content. 
             Point of contacts are usually people names, emails or phone numbers.
+            Return a list of point of contacts separated by comma.
             There should be no other text in the response.
             If uncertain, return 'Unknown'."""
         ),
