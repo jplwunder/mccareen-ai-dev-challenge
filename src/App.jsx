@@ -42,6 +42,9 @@ function App() {
   }, []);
 
   const handleGenerateProfile = async () => {
+    setCompanyProfileData(null);
+    setError(null);
+    setHelperText("");
     const url = `${
       import.meta.env.VITE_API_URL
     }/api/analyze-website?website_url=${encodeURIComponent(websiteUrl.trim())}`;
