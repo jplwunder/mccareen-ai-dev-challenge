@@ -1,0 +1,63 @@
+from fastapi import APIRouter
+from pydantic import BaseModel, HttpUrl
+from typing import List
+
+
+# Requests ----------------------------------------
+
+
+class WebsiteAnalysisRequest(BaseModel):
+    website_url: HttpUrl
+
+
+# Responses ---------------------------------------
+
+
+class CompanyProfile(BaseModel):
+    company_name: str
+    service_lines: List[str]
+    company_description: str
+    tier1_keywords: List[str]
+    tier2_keywords: List[str]
+    emails: List[str]
+    point_of_contact: str
+
+
+# Routes ----------------------------------------
+
+router = APIRouter()
+
+
+@router.get("/")
+async def root():
+    return {"message": "Company Profile Generator API", "version": "1.0.0"}
+
+
+@router.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+
+@router.post("/analyze-website", response_model=CompanyProfile)
+async def analyze_website(request: WebsiteAnalysisRequest):
+    mock_profile = CompanyProfile(
+        company_name="Example Company",
+        company_description="A leading technology company providing innovative solutions for businesses worldwide.",
+        tier1_keywords=[
+            "technology",
+            "innovation",
+            "solutions",
+            "business",
+            "software",
+        ],
+        tier2_keywords=["AI", "machine learning", "automation"],
+        emails=["info@example.com", "contact@example.com"],
+        point_of_contact="Jane Doe",
+        service_lines=[
+            "Web Development",
+            "Mobile App Development",
+            "Cloud Services",
+        ],
+    )
+
+    return mock_profile
