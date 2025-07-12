@@ -125,7 +125,6 @@ function App() {
               value={websiteUrl}
               helperText={helperText}
               onChange={(e) => {
-                setError(null);
                 setWebsiteUrl(e.target.value);
               }}
             />
