@@ -41,9 +41,9 @@ function App() {
   }, []);
 
   const handleGenerateProfile = async () => {
-    const url = `http://localhost:8000/api/analyze-website?website_url=${encodeURIComponent(
-      websiteUrl.trim()
-    )}`;
+    const url = `${
+      import.meta.env.VITE_API_URL
+    }/api/analyze-website?website_url=${encodeURIComponent(websiteUrl.trim())}`;
     if (!/^https?:\/\/[\w.-]+\.[a-z]{2,}/i.test(websiteUrl.trim())) {
       setError(
         "Please enter a valid website URL (including http:// or https://)."
@@ -68,8 +68,6 @@ function App() {
       setIsLoading(false);
     }
   };
-
-  console.log("Company Profile Data:", companyProfileData);
 
   return (
     <Container maxWidth={isMobile ? "xs" : "md"} sx={{ mt: 4 }}>
