@@ -1,8 +1,8 @@
 import requests
 import re
 
-from api.src.utils.logger import get_logger, LogLevel
-from api.src.utils.document_converter import convert_document_to_markdown
+from api.src.logger import get_logger, LogLevel
+from api.src.document_converter import convert_document_to_markdown
 
 logger = get_logger("service", level=LogLevel.DEBUG)
 
