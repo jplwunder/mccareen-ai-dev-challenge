@@ -21,6 +21,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [companyProfileData, setCompanyProfileData] = useState(null);
   const [error, setError] = useState(null);
+  const [helperText, setHelperText] = useState("");
 
   const [websiteUrl, setWebsiteUrl] = useState("");
 
@@ -45,7 +46,7 @@ function App() {
       import.meta.env.VITE_API_URL
     }/api/analyze-website?website_url=${encodeURIComponent(websiteUrl.trim())}`;
     if (!/^https?:\/\/[\w.-]+\.[a-z]{2,}/i.test(websiteUrl.trim())) {
-      setError(
+      setHelperText(
         "Please enter a valid website URL (including http:// or https://)."
       );
       return;
@@ -92,7 +93,7 @@ function App() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            height: isLoading || companyProfileData ? "auto" : "90vh",
+            height: isLoading || companyProfileData || error ? "auto" : "90vh",
           }}
         >
           <Stack spacing={2} sx={{ width: "100%" }}>
@@ -116,7 +117,7 @@ function App() {
               variant="outlined"
               placeholder="https://website.com"
               value={websiteUrl}
-              helperText={error}
+              helperText={helperText}
               onChange={(e) => {
                 setError(null);
                 setWebsiteUrl(e.target.value);
@@ -150,6 +151,25 @@ function App() {
                   Please wait... Profile generation can take up to a couple of
                   minutes.
                 </Typography>
+              </CardContent>
+              <CardActions>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  justifyContent="flex-end"
+                  flexGrow={1}
+                ></Stack>
+              </CardActions>
+            </Stack>
+          </Card>
+        )}
+
+        {!isLoading && error && (
+          <Card sx={{ width: "100%", marginTop: 2 }}>
+            <Stack spacing={2} sx={{ padding: 2 }}>
+              <CardHeader title={`Error...`} />
+              <CardContent>
+                <Typography variant="body1">{error}</Typography>
               </CardContent>
               <CardActions>
                 <Stack
