@@ -32,6 +32,18 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
 
   const [companyProfileData, setCompanyProfileData] = useState({
     ...initialCompanyProfileData,
+    service_lines:
+      initialCompanyProfileData?.service_lines.map((line) => line.trim()) || [],
+    tier1_keywords:
+      initialCompanyProfileData?.tier1_keywords.map((keyword) =>
+        keyword.trim()
+      ) || [],
+    tier2_keywords:
+      initialCompanyProfileData?.tier2_keywords.map((keyword) =>
+        keyword.trim()
+      ) || [],
+    emails:
+      initialCompanyProfileData?.emails.map((email) => email.trim()) || [],
   });
 
   console.log("Company Profile Data:", companyProfileData);
