@@ -113,7 +113,7 @@ async def extract_company_name_from_markdown(markdown_content: str) -> str:
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction="You are a company name extractor. Extract ONLY company name from the provided markdown content. There should be no other text in the response."
+            system_instruction="You are a company name extractor. Extract a SINGLE company name from the provided markdown content. There should be no other text in the response. Do not include any additional information or context."
         ),
         contents=markdown_content,
     )
