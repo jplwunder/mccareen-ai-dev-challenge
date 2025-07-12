@@ -73,15 +73,17 @@ async def get_company_profile(website_content) -> dict:
             "company_name": company_name,
             "service_lines": service_lines.split(",")
             if service_lines and service_lines != "Unknown"
-            else [],
+            else ["Unknown"],
             "company_description": company_description,
             "tier1_keywords": tier_1_keywords.split(",")
             if tier_1_keywords and tier_1_keywords != "Unknown"
-            else [],
+            else ["Unknown"],
             "tier2_keywords": tier_2_keywords.split(",")
             if tier_2_keywords and tier_2_keywords != "Unknown"
-            else [],
-            "emails": emails.split(",") if emails and emails != "Unknown" else [],
+            else ["Unknown"],
+            "emails": emails.split(",")
+            if emails and emails != "Unknown"
+            else ["Unknown"],
             "point_of_contact": point_of_contact,
         }
 
@@ -89,11 +91,11 @@ async def get_company_profile(website_content) -> dict:
         print(f"Error in get_company_profile: {e}")
         return {
             "company_name": "Unknown",
-            "service_lines": [],
+            "service_lines": ["Unknown"],
             "company_description": "Unknown",
-            "tier1_keywords": [],
-            "tier2_keywords": [],
-            "emails": [],
+            "tier1_keywords": ["Unknown"],
+            "tier2_keywords": ["Unknown"],
+            "emails": ["Unknown"],
             "point_of_contact": "Unknown",
         }
 
