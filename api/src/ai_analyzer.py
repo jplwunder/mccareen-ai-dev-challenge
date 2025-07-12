@@ -126,7 +126,7 @@ async def extract_service_lines_from_markdown(markdown_content: str) -> str:
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction="You are a service line extractor. Extract service lines for the company being described in the markdown content input. Return a list of service lines separated by comma. There should be no other text in the response."
+            system_instruction="You are a service line generator. Enumerate service lines for the company being described in the input content. Return a list of service lines separated by comma. There should be no other text in the response."
         ),
         contents=markdown_content,
     )
@@ -137,7 +137,9 @@ async def extract_company_description_from_markdown(markdown_content: str) -> st
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction="You are a company description extractor. Extract the company description from the input markdown content. There should be no other text in the response."
+            system_instruction="""You are a company description generator. 
+            Generate a company description paragraph based on the input content. 
+            There should be no other text in the response."""
         ),
         contents=markdown_content,
     )
@@ -148,7 +150,10 @@ async def extract_tier1_keywords_from_markdown(markdown_content: str) -> str:
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction="You are a company keyword extractor. Extract keywords that this company would DEFINITELY use to search for public government opportunities (e.g., 'solar' would be a good keyword for a company that sells solar panels). Return a list of keywords separated by comma. There should be no other text in the response."
+            system_instruction="""You are a company keywords generator. 
+            Enumerate keywords that this company would DEFINITELY use to search for public government opportunities
+            (e.g., 'solar' would be a good keyword for a company that sells solar panels). 
+            Return a list of keywords separated by comma. There should be no other text in the response."""
         ),
         contents=markdown_content,
     )
@@ -161,8 +166,8 @@ async def extract_tier2_keywords_from_markdown_and_previous_tier_1_keywords(
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction=f"""You are a company keyword extractor. 
-            Extract keywords that this company MIGHT use to search for public government opportunities, 
+            system_instruction=f"""You are a company keywords generator. 
+            Enumerate keywords that this company MIGHT use to search for public government opportunities, 
             but these keywords should be different than the tier 1 keywords provided: tier 1 keywords: {tier_1_keywords}. 
             Return a list of keywords separated by comma. 
             There should be no other text in the response."""
@@ -176,7 +181,9 @@ async def extract_emails_from_markdown(markdown_content: str) -> str:
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction="You are an email extractor. Extract all emails from the input markdown content. Return a list of emails separated by comma. There should be no other text in the response. If no emails are found, return an empty list."
+            system_instruction="""You are an email extractor. Extract all emails from the input content. 
+            Return a list of emails separated by comma. 
+            There should be no other text in the response. If no emails are found, return 'Unknown'."""
         ),
         contents=markdown_content,
     )
@@ -187,7 +194,10 @@ async def extract_point_of_contact_from_markdown(markdown_content: str) -> str:
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         config=genai_types.GenerateContentConfig(
-            system_instruction="You are a point of contact extractor. Extract the point of contact from the input markdown content. There should be no other text in the response. If uncertain, return 'Unknown'."
+            system_instruction="""You are a point of contact extractor. Extract the point of contact from the input markdown content. 
+            Point of contacts are usually people names, emails or phone numbers.
+            There should be no other text in the response.
+            If uncertain, return 'Unknown'."""
         ),
         contents=markdown_content,
     )
