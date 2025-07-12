@@ -32,18 +32,18 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
 
   const [companyProfileData, setCompanyProfileData] = useState({
     ...initialCompanyProfileData,
-    service_lines:
-      initialCompanyProfileData?.service_lines.map((line) => line.trim()) || ["Unknown"],
-    tier1_keywords:
-      initialCompanyProfileData?.tier1_keywords.map((keyword) =>
-        keyword.trim()
-      ) || ["Unknown"],
-    tier2_keywords:
-      initialCompanyProfileData?.tier2_keywords.map((keyword) =>
-        keyword.trim()
-      ) || ["Unknown"],
-    emails:
-      initialCompanyProfileData?.emails.map((email) => email.trim()) || ["Unknown"],
+    service_lines: initialCompanyProfileData?.service_lines.map((line) =>
+      line.trim()
+    ) || ["Unknown"],
+    tier1_keywords: initialCompanyProfileData?.tier1_keywords.map((keyword) =>
+      keyword.trim()
+    ) || ["Unknown"],
+    tier2_keywords: initialCompanyProfileData?.tier2_keywords.map((keyword) =>
+      keyword.trim()
+    ) || ["Unknown"],
+    emails: initialCompanyProfileData?.emails.map((email) => email.trim()) || [
+      "Unknown",
+    ],
   });
 
   if (mode === "edit") {
@@ -199,7 +199,9 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               {companyProfileData?.company_description || "..."}
             </Typography>
             <Box mt={2}>
-              <Typography variant="subtitle1">Service lines:</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Service lines:
+              </Typography>
               {companyProfileData?.service_lines &&
               companyProfileData.service_lines.length > 0 ? (
                 companyProfileData.service_lines.map((line, idx) => (
@@ -212,7 +214,9 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               )}
             </Box>
             <Box mt={2}>
-              <Typography variant="subtitle1">Tier 1 Keywords:</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Tier 1 Keywords:
+              </Typography>
               {companyProfileData?.tier1_keywords &&
               companyProfileData.tier1_keywords.length > 0 ? (
                 companyProfileData.tier1_keywords.map((keyword, idx) => (
@@ -225,7 +229,9 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               )}
             </Box>
             <Box mt={2}>
-              <Typography variant="subtitle1">Tier 2 Keywords:</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Tier 2 Keywords:
+              </Typography>
               {companyProfileData?.tier2_keywords &&
               companyProfileData.tier2_keywords.length > 0 ? (
                 companyProfileData.tier2_keywords.map((keyword, idx) => (
@@ -238,7 +244,9 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               )}
             </Box>
             <Box mt={2}>
-              <Typography variant="subtitle1">Emails:</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Emails:
+              </Typography>
               {companyProfileData?.emails &&
               companyProfileData.emails.length > 0 ? (
                 companyProfileData.emails.map((email, idx) => (
@@ -251,7 +259,9 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               )}
             </Box>
             <Box mt={2}>
-              <Typography variant="subtitle1">Point of Contact:</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Point of Contact:
+              </Typography>
               <Typography variant="body2">
                 {companyProfileData?.point_of_contact || "N/A"}
               </Typography>

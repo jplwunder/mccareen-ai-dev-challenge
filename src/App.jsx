@@ -47,6 +47,8 @@ function App() {
     setHelperText("");
     const url = `${
       import.meta.env.VITE_API_URL
+        ? import.meta.env.VITE_API_URL
+        : "http://localhost:8000"
     }/api/analyze-website?website_url=${encodeURIComponent(websiteUrl.trim())}`;
     if (!/^https?:\/\/[\w.-]+\.[a-z]{2,}/i.test(websiteUrl.trim())) {
       setHelperText(
