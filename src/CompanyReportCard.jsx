@@ -161,6 +161,7 @@ function CompanyReportCard({ isLoading, initialCompanyProfileData }) {
               <TextField
                 disabled={isLoading}
                 fullWidth
+                helperText="Comma-separated list"
                 value={companyProfileData?.point_of_contact?.join(", ") || ""}
                 variant="outlined"
                 margin="normal"
