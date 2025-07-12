@@ -16,11 +16,11 @@ class WebsiteAnalysisRequest(BaseModel):
 
 class CompanyProfile(BaseModel):
     company_name: str
-    service_lines: List[str]
+    service_lines: List[str] | str
     company_description: str
-    tier1_keywords: List[str]
-    tier2_keywords: List[str]
-    emails: List[str]
+    tier1_keywords: List[str] | str
+    tier2_keywords: List[str] | str
+    emails: List[str] | str
     point_of_contact: str
 
 

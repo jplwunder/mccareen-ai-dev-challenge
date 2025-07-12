@@ -1,4 +1,5 @@
 from docling.document_converter import DocumentConverter
+from docling.datamodel.base_models import InputFormat
 
 source = "https://arxiv.org/pdf/2408.09869"  # PDF path or URL
 converter = DocumentConverter()
