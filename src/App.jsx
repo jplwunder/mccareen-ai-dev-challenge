@@ -147,6 +147,12 @@ function App() {
             <Button
               onClick={handleGenerateProfile}
               disabled={!websiteUrl.trim() || isLoading}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor = "#f0f0f0")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor = "transparent")
+              }
               variant="text"
               color="default"
               sx={{
