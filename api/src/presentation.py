@@ -41,6 +41,6 @@ async def health_check():
 
 @router.post("/analyze-website", response_model=CompanyProfile)
 async def analyze_website(request: WebsiteAnalysisRequest):
-    mock_profile = service.analyze_website(request.website_url)
+    mock_profile = await service.analyze_website(request.website_url)
 
     return CompanyProfile(**mock_profile)
